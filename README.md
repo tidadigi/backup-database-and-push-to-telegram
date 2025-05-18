@@ -23,6 +23,7 @@ $ crontab -e
 Fill the last line with:
 
 0 0 * * * cd /home/backup/; backup.sh
+
 This will run the script daily on at midnight 😉.
 
 That's all! Open an issue if you need anything.
