@@ -3,13 +3,10 @@
 
 # === Cấu hình ===
 DB_USER="root"
-
 DB_PASS="12345"  #Passwd root mysql
 TELEGRAM_BOT_TOKEN="xxxxxxxx" # Token Telegram
 TELEGRAM_CHAT_ID="-123456" #ID Group Telegram
-DATE=$(date +"%d-%m-%Y")
-SERVER_IP=$(hostname -I | awk '{print $1}')
-BACKUP_DIR="/root/mysql_backup_telegram"
+BACKUP_DIR="/home/mysql_backup_telegram"
 
 mkdir -p "$BACKUP_DIR"
 
