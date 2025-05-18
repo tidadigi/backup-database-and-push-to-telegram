@@ -14,30 +14,14 @@ BACKUP_DIR="/home/mysql_backup_telegram"
 
 mkdir -p "$BACKUP_DIR"
 
-# Gửi tin nhắn thông báo trước
-HEADER_MSG="✅✅✅ Server ${SERVER_IP} - Backup - ${DATE}"
-curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-     -d chat_id="$TELEGRAM_CHAT_ID" \
-     -d text="$HEADER_MSG"
 
-# Lấy danh sách các database (bỏ qua system DB)
-DBS=$(mysql -u"$DB_USER" -p"$DB_PASS" -e "SHOW DATABASES;" | grep -Ev "Database|information_schema|performance_schema|mysql|sys")
+# Optional, run it daily using crontab
+To run the script daily you can create a cronjob using crontab (usually it is installed as default on a Linux server). So open crontab using:
 
-for DB in $DBS; do
-    FILENAME="${SERVER_IP}-${DB}-${DATE}.sql.gz"
-    FILEPATH="${BACKUP_DIR}/${FILENAME}"
+$ crontab -e
+Fill the last line with:
 
-    echo "Đang dump database: $DB ..."
-    mysqldump -u"$DB_USER" -p"$DB_PASS" "$DB" | gzip > "$FILEPATH"
+0 0 * * * cd ~/root/path/project/; python3 bak.py
+This will run the script daily on at midnight 😉.
 
-    echo "Gửi file $FILENAME lên Telegram ..."
-    curl -s -F document=@"$FILEPATH" \
-         -F chat_id="$TELEGRAM_CHAT_ID" \
-         "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument"
-done
-
-# Xoá toàn bộ file sau khi gửi
-echo "Đang xóa file backup trong $BACKUP_DIR ..."
-rm -f ${BACKUP_DIR}/*.sql.gz
-
-echo "Hoàn tất!"
+That's all! Open an issue if you need anything.
