@@ -19,6 +19,7 @@ mkdir -p "$BACKUP_DIR"
 To run the script daily you can create a cronjob using crontab (usually it is installed as default on a Linux server). So open crontab using:
 
 $ crontab -e
+
 Fill the last line with:
 
 0 0 * * * cd ~/root/path/project/; python3 bak.py
