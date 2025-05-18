@@ -3,6 +3,7 @@
 
 # === Cấu hình ===
 DB_USER="root"
+
 DB_PASS="12345"  #Passwd root mysql
 TELEGRAM_BOT_TOKEN="xxxxxxxx" # Token Telegram
 TELEGRAM_CHAT_ID="-123456" #ID Group Telegram
